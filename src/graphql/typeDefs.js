@@ -8,7 +8,9 @@ module.exports = gql`
       hometown: String
       house: String
       concentration: String
+      hobbies: String
     ): [User!]
+    follows(id: ID!): [Follows!]
     post(id: ID!): Post!
     posts: [Post!]
   }
@@ -23,6 +25,20 @@ module.exports = gql`
   type CreatePostReturn {
     post: Post
     error: Error
+  }
+
+  type Follows {
+    id: ID!
+    followerId: ID!
+    followingId: ID!
+    status: String!
+  }
+
+  type CreateFollow {
+    id: ID!
+    followerId: ID!
+    followingId: ID!
+    status: String!
   }
 
   type EditPostReturn {
@@ -64,6 +80,7 @@ module.exports = gql`
   type Post {
     id: ID!
     content: String!
+    updatedAt: String!
   }
 
   type LoginReturn {

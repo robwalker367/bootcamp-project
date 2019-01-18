@@ -9,6 +9,7 @@ class User extends BaseModel {
   static get relationMappings() {
     const Post = require('./Post')
     const Hobby = require('./Hobby')
+    const Follows = require('./Follows')
     return {
       posts: {
         relation: HasManyRelation,
@@ -26,15 +27,15 @@ class User extends BaseModel {
           to: 'hobbies.userId',
         },
       },
-      following: {
+      followers: {
         relation: ManyToManyRelation,
-        modelClass: User,
+        modelClass: Follows,
         join: {
-          from: 'users.id',
+          from: 'follows.followingId',
           through: {
             // follows is the join table.
-            from: 'follows.followerId',
-            to: 'follows.followingId',
+            from: 'follows.followingId',
+            to: 'follows.followerId',
           },
           to: 'users.id',
         },
